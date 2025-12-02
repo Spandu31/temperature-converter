@@ -15,7 +15,7 @@
 
     <style>
         body {
-            background-color: #f4f7f9; /* Soft, light gray background */
+            background-color: #f4f7f9;
             font-family: "Poppins", sans-serif;
             display: grid;
             place-items: center;
@@ -26,20 +26,20 @@
             width: 360px;
             background: #ffffff;
             border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Softer, minimal shadow */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
             padding: 2rem;
             border: 1px solid #e9ecef;
         }
 
         .card-title {
             font-weight: 600;
-            color: #212529; /* Dark text for high contrast */
+            color: #212529;
             font-size: 1.5rem;
         }
         
         .card-title .fa-temperature-half {
             margin-right: 10px;
-            color: #495057; /* Neutral icon color */
+            color: #495057;
         }
 
         .form-control, .form-select {
@@ -49,12 +49,12 @@
         }
 
         .form-control:focus, .form-select:focus {
-            border-color: #0d6efd; /* Standard Bootstrap blue for focus */
+            border-color: #0d6efd;
             box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.2);
         }
 
         .btn-convert {
-            background-color: #212529; /* Solid, dark button */
+            background-color: #212529;
             border: none;
             border-radius: 8px;
             padding: 12px;
@@ -63,7 +63,7 @@
         }
 
         .btn-convert:hover {
-            background-color: #343a40; /* Slightly lighter on hover for feedback */
+            background-color: #343a40;
         }
         
         .result-box {
@@ -73,27 +73,42 @@
             color: #212529;
             border: 1px solid #dee2e6;
             font-weight: 600;
-            /* The result will appear instantly but can be faded in with JS if needed */
         }
     </style>
 </head>
 <body>
 
 <div class="converter-card">
-    <h3 class="card-title text-center mb-4"><i class="fas fa-temperature-half"></i>Temperature Converter</h3>
+    <h3 class="card-title text-center mb-4">
+        <i class="fas fa-temperature-half"></i>Temperature Converter
+    </h3>
+
     <form method="POST">
         <div class="mb-3">
             <label for="temperature" class="form-label">Enter Temperature:</label>
-            <input type="number" step="any" class="form-control" id="temperature" name="temperature" placeholder="e.g. 25" required>
+            <input
+                type="number"
+                step="any"
+                class="form-control"
+                id="temperature"
+                name="temperature"
+                placeholder="e.g. 25"
+                required
+                value="{{ temperature or '' }}"
+            >
         </div>
+
         <div class="mb-3">
             <label for="unit" class="form-label">Convert From:</label>
             <select class="form-select" id="unit" name="unit" required>
-                <option value="C">Celsius (°C)</option>
-                <option value="F">Fahrenheit (°F)</option>
+                <option value="C" {% if unit == 'C' %}selected{% endif %}>Celsius (°C)</option>
+                <option value="F" {% if unit == 'F' %}selected{% endif %}>Fahrenheit (°F)</option>
             </select>
         </div>
-        <button type="submit" class="btn btn-primary w-100 btn-convert">Convert</button>
+
+        <button type="submit" class="btn btn-primary w-100 btn-convert">
+            Convert
+        </button>
     </form>
 
     {% if result %}
